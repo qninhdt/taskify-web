@@ -7,10 +7,18 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      keyframes: {
+        wawe: {
+          '0%': { transform: '', opacity: 1 },
+          '100%': {
+            transform: 'translateX(-10%) translateY(10%)',
+            opacity: 0,
+          },
+        },
+      },
+      animation: {
+        wawe: 'wawe 1s ease-in-out infinite',
+        xwave: 'wawe 1s ease-in-out -0.5s infinite',
       },
     },
   },
