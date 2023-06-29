@@ -12,8 +12,6 @@ export default function ConnectWalletButton() {
     const { provider, address } = await connectWallet()
     setProvider(provider)
     setAddress(address)
-    setBalance(await getBalance(provider, address))
-    // setTkfBalance(await getBalance(provider, address))
   }
 
   return (

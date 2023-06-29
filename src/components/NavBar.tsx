@@ -44,7 +44,7 @@ export default function NavBar() {
   }, [pathname])
 
   return (
-    <nav className="flex flex-col justify-center border-r-[1px] border-gray-200 bg-white py-3">
+    <nav className="flex flex-col justify-center rounded-2xl border-[1px] bg-white py-3 shadow-md">
       <div className="mb-8 flex flex-col items-center">
         <Logo className="h-7 w-7" />
       </div>
@@ -59,7 +59,7 @@ export default function NavBar() {
               <div
                 className={`relative px-3 ${
                   link.name == currentLink &&
-                  'after:absolute after:right-[-2px] after:top-[50%] after:h-4 after:w-[2px] after:translate-y-[-50%] after:bg-emerald-500'
+                  'after:absolute after:right-0 after:top-[50%] after:h-4 after:w-[3px] after:translate-y-[-50%] after:rounded-full after:bg-emerald-500'
                 }`}
                 key={link.name}
               >

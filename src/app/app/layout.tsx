@@ -7,7 +7,7 @@ export default function Layout({ children }: any) {
   return (
     <WalletContextProvider>
       <div className="flex h-[100vh] w-[100vw] flex-row ">
-        <div className="flex flex-row items-center pl-2">
+        <div className="flex flex-row items-center pl-3">
           <NavBar />
         </div>
         <div className="flex-1 ">{children}</div>
