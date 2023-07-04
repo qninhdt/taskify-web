@@ -1,11 +1,11 @@
 'use client'
 
-import {
-  IWallet,
-  WalletContext,
-  WalletContextProvider,
-} from '@/contexts/wallet-context'
 import './globals.css'
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+
 import { Inter } from 'next/font/google'
 import { FC, PropsWithChildren, use, useContext } from 'react'
 import NavBar from '@/components/NavBar'
