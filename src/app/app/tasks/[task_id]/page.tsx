@@ -3,23 +3,60 @@
 import { WalletContext } from '@/contexts/wallet-context'
 import { taskElectionContract } from '@/services/wallet'
 import { ethers } from 'ethers'
+import { toast } from 'react-toastify'
 import { useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function TaskPage({ params }: any) {
   const [election, setElection] = useState<any>(null)
   const [stake, setStake] = useState<any>('')
-  const { address } = useContext<any>(WalletContext)
+  const { address, allowance } = useContext<any>(WalletContext)
+  const router = useRouter()
 
   const castVote = async (candidateId: number) => {
-    if (stake === '' || election.vote != null || election.author == address) {
+    if (election.author == address) return
+
+    if (election.myVote != null) {
+      toast.error('You have already voted')
       return
     }
 
-    await taskElectionContract.castVote(
-      params.task_id,
-      candidateId,
-      ethers.parseEther(stake),
-    )
+    if (stake === '') {
+      toast.error('Please enter a stake')
+      return
+    }
+
+    if (allowance < ethers.parseEther(stake)) {
+      toast.error('Not enough allowance to stake')
+      return
+    }
+
+    const _stake = ethers.parseEther(stake)
+
+    if (_stake > allowance) {
+      toast.error('You do not have enough allowance')
+      return
+    }
+
+    await taskElectionContract.castVote(params.task_id, candidateId, _stake)
+
+    toast.success('Vote casted')
+
+    router.push('/app/tasks/')
+  }
+
+  const finishElection = async () => {
+    await taskElectionContract.finalizeElection(params.task_id)
+
+    toast.success('Election finalized')
+    router.push('/app/tasks/')
+  }
+
+  const cancelElection = async () => {
+    await taskElectionContract.cancelElection(params.task_id)
+
+    toast.success('Election canceled')
+    router.push('/app/tasks/')
   }
 
   useEffect(() => {
@@ -46,7 +83,6 @@ export default function TaskPage({ params }: any) {
           stake: myVote[0],
           candidateId: Number(myVote[1]),
         }
-        console.log(myVote)
       }
 
       setElection({
@@ -131,10 +167,18 @@ export default function TaskPage({ params }: any) {
             <div className="flex flex-row justify-end">
               {address === election.author ? (
                 <>
-                  <button className="btn-outline btn-error btn-sm btn mr-2">
+                  <button
+                    onClick={cancelElection}
+                    className="btn-outline btn-error btn-sm btn mr-2"
+                  >
                     Cancel
                   </button>
-                  <button className="btn-success btn-sm btn">Finish</button>
+                  <button
+                    onClick={finishElection}
+                    className="btn-success btn-sm btn"
+                  >
+                    Finish
+                  </button>
                 </>
               ) : (
                 <input

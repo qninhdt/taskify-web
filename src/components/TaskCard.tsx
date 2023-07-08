@@ -2,6 +2,14 @@ import { ethers } from 'ethers'
 import Link from 'next/link'
 
 export default function TaskCard({ task }: any) {
+  const status = [
+    ['active', 'badge-success'],
+    ['closed', 'badge-warning'],
+    ['canceled', 'badge-error'],
+  ]
+
+  console.log(task)
+
   return (
     <div className="card card-side mb-3 w-[640px] bg-base-100 shadow-md">
       <figure>
@@ -13,12 +21,18 @@ export default function TaskCard({ task }: any) {
       </figure>
       <div className="card-body p-4">
         <div>
-          <span className="badge badge-success badge-outline badge-xs mr-1 p-2">
-            active
+          <span
+            className={`badge ${
+              status[task.state][1]
+            } badge-outline badge-xs mr-1 p-2`}
+          >
+            {status[task.state][0]}
           </span>
-          <span className="badge badge-info badge-outline badge-xs p-2">
-            {task.numVoters.toString()} votes
-          </span>
+          {task.state != 2 && (
+            <span className="badge badge-info badge-outline badge-xs p-2">
+              {task.numVoters.toString()} votes
+            </span>
+          )}
         </div>
 
         <h2 className="card-title">{task.title}</h2>
@@ -30,14 +44,16 @@ export default function TaskCard({ task }: any) {
           </b>
           <span>TKF</span>
         </span>
-        <div className="card-actions justify-end">
-          <Link
-            href={`/app/tasks/${task.id}`}
-            className="btn-outline btn-sm btn"
-          >
-            View
-          </Link>
-        </div>
+        {task.state != 2 && (
+          <div className="card-actions justify-end">
+            <Link
+              href={`/app/tasks/${task.id}`}
+              className="btn-outline btn-sm btn"
+            >
+              View
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )

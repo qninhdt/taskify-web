@@ -20,10 +20,6 @@ const links = [
     { name: 'Dashboard', href: '/app', icon: Squares2X2Icon },
     { name: 'Task', href: '/app/tasks', icon: Square3Stack3DIcon },
   ],
-  [
-    { name: 'Notification', href: '/app/notifications', icon: BellIcon },
-    { name: 'Chat', href: '/app/chat', icon: ChatBubbleLeftEllipsisIcon },
-  ],
 ]
 
 export default function NavBar() {

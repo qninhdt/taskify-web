@@ -6,6 +6,7 @@ import { PlusIcon } from '@heroicons/react/24/outline'
 import { ethers } from 'ethers'
 import TaskCard from '@/components/TaskCard'
 import { WalletContext } from '@/contexts/wallet-context'
+import { toast } from 'react-toastify'
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState<any>([])
@@ -15,7 +16,7 @@ export default function TasksPage() {
   const [reward, setReward] = useState<string>('0')
   const [newCandidate, setNewCandidate] = useState<string>('')
   const [modalOpen, setModalOpen] = useState<boolean>(false)
-  const { address } = useContext(WalletContext)
+  const { address, allowance } = useContext(WalletContext)
 
   const getTasks = async () => {
     const numElections = await taskElectionContract.numElections()
@@ -42,6 +43,11 @@ export default function TasksPage() {
 
   const createTask = async () => {
     const _reward = ethers.parseEther(reward)
+
+    if (_reward > allowance) {
+      toast.error('You do not have enough allowance')
+      return
+    }
 
     await taskElectionContract.createElection(
       '',
