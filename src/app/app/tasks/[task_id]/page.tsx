@@ -95,6 +95,7 @@ export default function TaskPage({ params }: any) {
         reward: election[6],
         numCandidates: election[7],
         numVoters: election[8],
+        winningCandidateId: Number(election[9]),
         candidates: candidates,
         myVote,
       })
@@ -156,6 +157,12 @@ export default function TaskPage({ params }: any) {
                     key={idx}
                   >
                     <span>{candidate.title}</span>
+                    {election.winningCandidateId === idx &&
+                      election.state != 0 && (
+                        <span className="badge badge-success badge-xs p-2">
+                          Winner
+                        </span>
+                      )}
                     {election.myVote?.candidateId === idx && (
                       <span className="badge badge-success badge-outline badge-xs p-2">
                         {parseFloat(
