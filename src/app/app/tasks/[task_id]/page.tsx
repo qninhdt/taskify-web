@@ -109,9 +109,9 @@ export default function TaskPage({ params }: any) {
           <div>
             <figure className="px-10 pt-10">
               <img
-                src="https://picsum.photos/200"
+                src={'/images/' + election.picture}
                 alt={election.title}
-                className="rounded-xl"
+                className="h-56 w-56 rounded-xl object-cover"
               />
             </figure>
             <div className="card-body items-center text-center">
@@ -134,10 +134,10 @@ export default function TaskPage({ params }: any) {
               <div className="mb-2">
                 <span
                   className={`badge badge-${
-                    election.state === 0 ? 'success' : 'warning'
+                    election.state == 0 ? 'success' : 'warning'
                   } badge-outline badge-xs mr-1 p-2`}
                 >
-                  {election.state === 0 ? 'active' : 'closed'}
+                  {election.state == 0 ? 'active' : 'closed'}
                 </span>
               </div>
               <h2 className="mb-1 text-xl">{election.title}</h2>

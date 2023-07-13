@@ -14,7 +14,7 @@ export default function TaskCard({ task }: any) {
         <img
           src={'/images/' + task.picture}
           alt={task.title}
-          className="h-48"
+          className="h-48 w-48 object-cover"
         />
       </figure>
       <div className="card-body p-4">
