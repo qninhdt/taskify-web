@@ -53,7 +53,7 @@ export async function loadContracts(provider: ethers.BrowserProvider) {
   const signer = await provider.getSigner()
 
   tokenContract = new ethers.Contract(
-    '0xF8C62D5303E2B7E57A937A9279dF06D837bA5a0E',
+    '0x0BD9825696C8dC9E7eB58F102EDC6488cFADb937',
     TKFTokenContractABI,
     signer,
   )
