@@ -9,6 +9,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { toast } from 'react-toastify'
 
 export interface IWallet {
   balance: bigint
@@ -71,17 +72,9 @@ export const WalletContextProvider: FC<PropsWithChildren> = ({ children }) => {
     provider.on('block', getBalance)
 
     tokenContract.on('Transfer', async (from, to, amount: bigint) => {
-      if (from === address) {
-        setTkfBalance((prev) => prev - amount)
-
-        const allowance = await tokenContract.allowance(
-          address,
-          await taskElectionContract.getAddress(),
-        )
-
-        setAllowance(allowance)
-      } else if (to === address) {
-        setTkfBalance((prev) => prev + amount)
+      if (from === address || to === address) {
+        getTkfBalance()
+        getAllowance()
       }
     })
 

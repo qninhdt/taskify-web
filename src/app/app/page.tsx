@@ -71,7 +71,7 @@ export default function Dashboard() {
             className={`btn-outline btn ${approving && 'opacity-80'}`}
           >
             {approving && <span className="loading loading-spinner"></span>}
-            Approve 1 TKF
+            Approve
           </button>
         </div>
       </div>

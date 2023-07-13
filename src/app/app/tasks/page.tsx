@@ -15,8 +15,16 @@ export default function TasksPage() {
   const [candidates, setCandidates] = useState<any>([])
   const [reward, setReward] = useState<string>('0')
   const [newCandidate, setNewCandidate] = useState<string>('')
+  const [picture, setPicture] = useState<string>('book.jpg')
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { address, allowance } = useContext(WalletContext)
+
+  const images = [
+    { name: 'Book', filename: 'book.jpg' },
+    { name: 'Coffee', filename: 'coffee.jpg' },
+    { name: 'Etherium', filename: 'etherium.jpg' },
+    { name: 'Plant', filename: 'plant.jpg' },
+  ]
 
   const getTasks = async () => {
     const numElections = await taskElectionContract.numElections()
@@ -50,7 +58,7 @@ export default function TasksPage() {
     }
 
     await taskElectionContract.createElection(
-      '',
+      picture,
       title,
       description,
       _reward,
@@ -63,6 +71,7 @@ export default function TasksPage() {
   const closeModal = () => {
     setModalOpen(false)
     setTitle('')
+    setPicture('')
     setDescription('')
     setCandidates([])
     setNewCandidate('')
@@ -102,6 +111,19 @@ export default function TasksPage() {
           placeholder="Type here"
           className="input-bordered input input-md w-full max-w-xs"
         />
+        <label className="label">
+          <span className="label-text">Picture</span>
+        </label>
+        <select
+          className="select-bordered select w-full max-w-xs"
+          onChange={(e) => setPicture(e.target.value)}
+        >
+          {images.map((image, idx) => (
+            <option key={idx} value={image.filename}>
+              {image.name}
+            </option>
+          ))}
+        </select>
         <label className="label">
           <span className="label-text">Reward (TKF)</span>
         </label>

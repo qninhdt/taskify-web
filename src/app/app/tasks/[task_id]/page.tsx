@@ -132,8 +132,12 @@ export default function TaskPage({ params }: any) {
           <div className="card-body">
             <div className="mb-3">
               <div className="mb-2">
-                <span className="badge badge-success badge-outline badge-xs mr-1 p-2">
-                  active
+                <span
+                  className={`badge badge-${
+                    election.state === 0 ? 'success' : 'warning'
+                  } badge-outline badge-xs mr-1 p-2`}
+                >
+                  {election.state === 0 ? 'active' : 'closed'}
                 </span>
               </div>
               <h2 className="mb-1 text-xl">{election.title}</h2>

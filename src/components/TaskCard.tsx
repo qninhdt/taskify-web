@@ -8,13 +8,11 @@ export default function TaskCard({ task }: any) {
     ['canceled', 'badge-error'],
   ]
 
-  console.log(task)
-
   return (
     <div className="card card-side mb-3 w-[640px] bg-base-100 shadow-md">
       <figure>
         <img
-          src="https://picsum.photos/200"
+          src={'/images/' + task.picture}
           alt={task.title}
           className="h-48"
         />
