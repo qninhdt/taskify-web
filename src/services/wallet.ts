@@ -59,7 +59,7 @@ export async function loadContracts(provider: ethers.BrowserProvider) {
   )
 
   taskElectionContract = new ethers.Contract(
-    '0xCF6105a18F871b1becA8597C4487EEC03e865FA9',
+    '0x7a9A7d5ae7c6b88c929903db2c0e54DDC58Fd0b4',
     TaskElectionContractABI,
     signer,
   )
